@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Perfil de {{student.name}}</ion-title>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <img [src]="student.photo" />
+        <ion-card-header>
+            <ion-card-title>
+                <ion-label>
+                    {{student.controlnumber}}
+                    <ion-chip color="primary" outline="true" class="ion-float-right">
+                        <ion-label>{{student.career}}</ion-label>
+                    </ion-chip>
+                </ion-label>
+            </ion-card-title>
+            <ion-card-subtitle>{{student.email}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+            <h2>
+                CURP: {{student.curp}}
+            </h2>
+            <h2>
+                Edad: {{student.age}} años
+            </h2>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

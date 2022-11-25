@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Student } from "../models/student";
+import {map} from 'rxjs/operators';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,8 @@ export class StudentService {
 
   private students: Student[];
 
-  constructor() {
+  //Firestore es un servicio, entonces en constructor
+  constructor(private firestore: AngularFirestore) {
     this.students = [
       {
         controlnumber: "02400391",
@@ -43,8 +46,21 @@ export class StudentService {
     ];
   }
 
-  public getStudents(): Student[]{
-    return this.students;
+  public getStudents(){
+    //Conexión a firestore y return
+    return this.firestore.collection('students') //Obtner conexion
+      .snapshotChanges() //Obtener snapshot con datos observables y si hay cambios se vuelve a ejecutar. Hace que no tengamos que refrescar la página
+      .pipe( //Pipe da el formato para nuestros datos que obtenemos
+        map(actions=> {
+          return actions.map(a=>{ //a es un objeto que contiene el payload que tiene un doc, el cual tiene data que nos trae la información
+            //Firestore separa datos de id
+            const data = a.payload.doc.data() as Student;
+            const id = a.payload.doc.id;
+            //Formato
+            return {id, ...data};
+          });
+        })
+      );
   }
 
   public removeStudent(pos: number): Student[]{

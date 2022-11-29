@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Student } from '../models/student';
 import { StudentService } from '../services/student.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-new-student',
@@ -14,7 +16,7 @@ export class NewStudentPage implements OnInit {
   public myForm: FormGroup;
   public validationMessages: object;
 
-  constructor(private studentService: StudentService, private fb: FormBuilder) { }
+  constructor(private studentService: StudentService, private fb: FormBuilder, private router: Router, private location: Location) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
@@ -80,10 +82,15 @@ export class NewStudentPage implements OnInit {
       email: this.myForm.controls.email.value,
       career: this.myForm.controls.career.value,
       photo: this.myForm.controls.photo.value,
-    }
-
-    console.log(this.studentService.newStudent(this.student));
-    
+    };
+    this.studentService.newStudent(this.student);
+    //Tarea, como cerrar esta pantalla para regresar a pantalla anterior
+    //puede ser hecho con router pop
+    this.back();
+    //console.log();
   }
+  back(): void {
+    this.location.back();
+}
 
 }

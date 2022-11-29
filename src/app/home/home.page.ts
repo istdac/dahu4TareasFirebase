@@ -42,7 +42,7 @@ export class HomePage {
           text: 'Aceptar',
           role: 'confirm',
           handler: () => {
-            this.students = this.studentService.removeStudent(pos);
+            this.studentService.removeStudent(id);
           }
         }
       ]

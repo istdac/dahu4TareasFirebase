@@ -16,8 +16,13 @@ export class HomePage {
   public students: Student[];
 
   constructor(private studentService: StudentService, private alertController: AlertController, private router: Router) {
-    this.students = this.studentService.getStudents();
+    //this.students = this.studentService.getStudents();
+    this.studentService.getStudents().subscribe(res=>{ //Subscribe siempre se hace en consultas de datos observables
+      this.students=res;
+      console.log(this.students);
+    });
 
+    //Tarea para lunes, poner firebase solamente de listar tareas en proyecto de las tareas
   }
 
   public async removeStudent(pos: number) {

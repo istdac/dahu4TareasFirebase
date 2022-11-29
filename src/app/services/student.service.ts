@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Student } from "../models/student";
 import {map} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class StudentService {
     ];
   }
 
-  public getStudents(){
+  public getStudents(): Observable<Student[]>{
     //Conexión a firestore y return
     return this.firestore.collection('students') //Obtner conexion
       .snapshotChanges() //Obtener snapshot con datos observables y si hay cambios se vuelve a ejecutar. Hace que no tengamos que refrescar la página
@@ -75,9 +76,10 @@ export class StudentService {
     return item;
   }
 
-  public newStudent(student: Student): Student[] {
-    this.students.push(student);
-    return this.students;
+  public newStudent(student: Student) {
+    //this.students.push(student);
+    //return this.students;
+    this.firestore.collection('students').add(student);
   }
 
 }

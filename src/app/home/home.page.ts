@@ -25,7 +25,7 @@ export class HomePage {
     //Tarea para lunes, poner firebase solamente de listar tareas en proyecto de las tareas
   }
 
-  public async removeStudent(pos: number) {
+  public async removeStudent(id: string) {
     const alert = await this.alertController.create({
       header: 'Confirmación',
       subHeader: '¿Estás seguro que deseas eliminar?',

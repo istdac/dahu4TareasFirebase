@@ -64,9 +64,10 @@ export class StudentService {
       );
   }
 
-  public removeStudent(pos: number): Student[]{
-    this.students.splice(pos, 1);
-    return this.students;
+  public removeStudent(id: string){
+    //this.students.splice(pos, 1);
+    //return this.students;
+    this.firestore.collection('students').doc(id).delete();
   }
 
   public getStudentByControlNumber(controlnumber: string): Student {

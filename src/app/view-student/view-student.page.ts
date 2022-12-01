@@ -14,17 +14,40 @@ import { ActivatedRoute } from '@angular/router';
 export class ViewStudentPage implements OnInit {
 
   public student: Student;
+  public id: string;
 
-  constructor(private studentService: StudentService, private activatedRoute: ActivatedRoute) {
-    
+  constructor(private studentService: StudentService, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.student={
+      controlnumber: '',
+      age: 0,
+      career: '',
+      curp: '',
+      email: '',
+      name: '',
+      nip: 0,
+      photo: ''
+    };
   }
 
   ngOnInit() {
     // let cn;
-    this.activatedRoute.queryParams.subscribe((params) => {
+    /*this.activatedRoute.queryParams.subscribe((params) => {
       this.student = this.studentService.getStudentByControlNumber(params.cn);
-    });
+    });*/
     // console.log(cn);
+    this.activatedRoute.queryParams.subscribe((params) => {
+          this.studentService.getStudentById(params.id).subscribe(item=>{
+            this.student = item as Student;
+            this.id = params.id;
+            console.log(this.id)
+          });
+    });
   }
+  public editStudent(){
+    this.router.navigate(['/edit-student'],{
+      queryParams: {id:this.id}
+    });
+  }
+
 
 }

@@ -11,7 +11,7 @@
         <ion-col>
             <ion-list>
                 <ion-item-sliding *ngFor="let item of students; let i=index">
-                    <ion-item (click)="getStudentByControlNumber(item.controlnumber)">
+                    <ion-item (click)="getStudentById(item.id)">
                         <ion-label>
                             <strong>{{item.name}}</strong>
                             <ion-chip color="primary" outline="true" class="ion-float-right">

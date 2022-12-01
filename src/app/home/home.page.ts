@@ -64,5 +64,10 @@ export class HomePage {
   public goToNewStudent(): void {
     this.router.navigate(['/new-student']);
   }
+  public getStudentById(id: string){
+    this.router.navigate(['/view-student'],{
+      queryParams:{id},
+    });
+  }
 
 }

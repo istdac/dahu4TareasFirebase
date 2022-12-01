@@ -83,4 +83,38 @@ export class StudentService {
     this.firestore.collection('students').add(student);
   }
 
+  public getStudentById(id: string){
+    //let student: Student;
+    let result = this.firestore.collection('students').doc(id).valueChanges();
+    //Como snapshotchange pero con formato diferente, tipo observable
+    return result;
+  }
+
+  public updateStudent(id:string, cn: string,ag: number,ca: string,cu: string,em: string,na: string,ni: number,ph: string){
+   /* let update =  this.students.findIndex(
+      (student)=> student.controlnumber === cn//funAnonima
+    );
+
+    this.students[update].age=ag;
+    this.students[update].career=ca;
+    this.students[update].curp=cu;
+    this.students[update].email=em;
+    this.students[update].name=na;
+    this.students[update].photo=ph;
+    this.students[update].nip=ni;
+*/
+
+  this.firestore.collection('students').doc(id).update(
+    {controlnumber: cn,
+        age: ag,
+        career: ca,
+        curp: cu,
+        email: em,
+        name: na,
+        nip: ni,
+        photo: ph}
+  );
+  }
+
+
 }
